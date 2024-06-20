@@ -3,15 +3,19 @@ from django.http import JsonResponse
 from pytube import YouTube
 import os
 
+def moved(request):
+    return JsonResponse({ 'endpoint': 'Working endpoint is /api/v1'})
+
 def download_video(request):
     url = request.GET.get('urls')
-    download_path = request.GET.get('download_path', '')  # Default to current directory if not provided
+    print(request)
+    download_path = request.GET.get('download_path', '')
 
     if not url:
         return JsonResponse({'Error': 'No URL provided'})
 
     if not download_path:
-        download_path = os.getcwd()  # Use current directory if no path is provided
+        download_path = os.getcwd()
 
     try:
         youtube = YouTube(url)
