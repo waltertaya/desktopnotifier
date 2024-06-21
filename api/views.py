@@ -8,14 +8,14 @@ def moved(request):
 
 def download_video(request):
     url = request.GET.get('urls')
-    print(request)
     download_path = request.GET.get('download_path', '')
 
     if not url:
         return JsonResponse({'Error': 'No URL provided'})
 
     if not download_path:
-        download_path = os.getcwd()
+        # download_path = os.getcwd()
+        download_path = os.path.join(os.path.expanduser('~'), 'Desktop')
 
     try:
         youtube = YouTube(url)
