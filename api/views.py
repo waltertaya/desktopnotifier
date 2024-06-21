@@ -8,7 +8,6 @@ def moved(request):
 
 def download_video(request):
     url = request.GET.get('urls')
-    print(request)
     download_path = request.GET.get('download_path', '')
 
     if not url:
@@ -21,8 +20,6 @@ def download_video(request):
         youtube = YouTube(url)
         video = youtube.streams.get_highest_resolution()
         video.download(download_path)
-        print("Video downloaded successfully!")
         return JsonResponse({'video': 'Video downloaded successfully', 'path': download_path})
     except Exception as e:
-        print("An error occurred while downloading the video:", str(e))
         return JsonResponse({'Error': str(e)})
