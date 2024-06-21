@@ -1,4 +1,4 @@
-# from django.shortcuts import render
+from django.shortcuts import render
 from django.http import JsonResponse
 from pytube import YouTube
 import os
@@ -13,8 +13,9 @@ def download_video(request):
     if not url:
         return JsonResponse({'Error': 'No URL provided'})
 
+    # Set default download path to the Desktop
     if not download_path:
-        download_path = os.getcwd()
+        download_path = os.path.join(os.path.expanduser('~'), 'Desktop')
 
     try:
         youtube = YouTube(url)
